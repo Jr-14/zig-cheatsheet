@@ -22,7 +22,9 @@ pub fn readFile(io: std.Io, allocator: std.mem.Allocator, filename: []const u8) 
 
     const fr_buffer = try allocator.alloc(u8, filesize);
     defer allocator.free(fr_buffer);
-    _ = fr.interface.readSliceAll(fr_buffer) catch 0;
+    fr.interface.readSliceAll(fr_buffer) catch |err| {
+        std.log.err("read failed: {}", .{ err });
+    };
 
     std.debug.print("{s}\n", . { fr_buffer });
 }
