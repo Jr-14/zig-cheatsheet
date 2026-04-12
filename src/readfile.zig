@@ -31,16 +31,8 @@ pub fn readFile(io: std.Io, allocator: std.mem.Allocator, filename: []const u8) 
 }
 
 test "testing file reading" {
-    // var dbga = std.heap.DebugAllocator(.{}){};
-    // defer _ = dbga.deinit();
-    // const allocator = dbga.allocator();
-
-    var threaded: std.Io.Threaded = .init_single_threaded;
-    const io = threaded.io();
-
-    var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
-    defer arena.deinit();
-    const allocator = arena.allocator();
+    const io: std.Io = std.testing.io;
+    const allocator: std.mem.Allocator = std.testing.allocator;
 
     try readFile(io, allocator, "some.txt");
 }

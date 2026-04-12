@@ -1,5 +1,6 @@
 const std = @import("std");
 const Io = std.Io;
+const rf = @import("readfile.zig");
 
 const zig_cheatsheet = @import("zig_cheatsheet");
 
@@ -18,6 +19,8 @@ pub fn main(init: std.process.Init) !void {
 
     // In order to do I/O operations need an `Io` instance.
     const io = init.io;
+
+    try rf.readFile(io, arena, "some.txt");
 
     // Stdout is for the actual output of your application, for example if you
     // are implementing gzip, then only the compressed bytes should be sent to
